@@ -22,18 +22,17 @@ public class MainActivity extends AppCompatActivity {
         viewModelMainActivity = new ViewModelProvider(this).get(ViewModelMainActivity.class);
         button = findViewById(R.id.button);
         textView = findViewById(R.id.text);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModelMainActivity.setLiveDataTextToView("Я изменил данный текст через LiveData + ViewModel");
-                textView.setText(viewModelMainActivity.liveDataTextToView.getValue());
+                viewModelMainActivity.sendRequest();
             }
         });
 
         viewModelMainActivity.liveDataTextToView.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                //данный код срабатывает при измении LiveData
                 textView.setText(s);
             }
         });

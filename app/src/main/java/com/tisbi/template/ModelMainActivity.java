@@ -22,7 +22,7 @@ public class ModelMainActivity {
 
     ModelMainActivity(IMyCallback iMyCallback) {
         this.iMyCallback = iMyCallback;
-        list.add(new Person("Alex"));
-        list.add(new Person("Morti", 22));
+        list.add(new Person("Alex", 22, 73425849, "Los-Angeles"));
+        list.add(new Person("Morti", 22, 455345, "Los-Angeles"));
     }
 }

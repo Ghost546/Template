@@ -3,40 +3,44 @@ package com.tisbi.template;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     ViewModelMainActivity viewModelMainActivity;
-    Button button;
-    TextView textView;
+    RecyclerView recyclerView;
+    PersonAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewModelMainActivity = new ViewModelProvider(this).get(ViewModelMainActivity.class);
-        button = findViewById(R.id.button);
-        textView = findViewById(R.id.text);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        recyclerView = findViewById(R.id.list);
+
+
+        viewModelMainActivity.sendRequest();
+
+        viewModelMainActivity.liveDataTextToView.observe(this, new Observer<ArrayList<Person>>() {
             @Override
-            public void onClick(View view) {
-                viewModelMainActivity.sendRequest();
+            public void onChanged(ArrayList<Person> people) {
+                setRecyclerView(people);
             }
         });
+    }
 
-        viewModelMainActivity.liveDataTextToView.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                textView.setText(s);
-            }
-        });
-
+    public void setRecyclerView(ArrayList<Person> people) {
+        adapter = new PersonAdapter(this, people);
+        recyclerView.setAdapter(adapter);
     }
 
 }

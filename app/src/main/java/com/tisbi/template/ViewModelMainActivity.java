@@ -2,8 +2,10 @@ package com.tisbi.template;
 
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+
 public class ViewModelMainActivity extends ViewModel implements IMyCallback{
-    LiveDataTextToView liveDataTextToView = new LiveDataTextToView();
+    LiveDataPersonsList liveDataTextToView = new LiveDataPersonsList();
     ModelMainActivity modelMainActivity = new ModelMainActivity(this);
 
     public void sendRequest() {
@@ -11,10 +13,10 @@ public class ViewModelMainActivity extends ViewModel implements IMyCallback{
     }
     @Override
     public void sendData() {
-        liveDataTextToView.postValue(modelMainActivity.getList().get(0).getFirstname());
+        liveDataTextToView.postValue(modelMainActivity.getList());
     }
 
-    public void setLiveDataTextToView(String text) {
-        liveDataTextToView.postValue(text);
-    }
+//    public void setLiveDataTextToView(ArrayList<Person> list) {
+//        liveDataTextToView.postValue(list);
+//    }
 }
